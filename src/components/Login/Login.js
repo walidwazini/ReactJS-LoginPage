@@ -12,28 +12,37 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    const identifier = setTimeout(() => {
-      console.log('Check form validity! ')
-      setFormIsValid(
-        enteredEmail.includes('@') && enteredPassword.trim().length > 6
-      );
-    }, 400)
+    console.log('EFFECT RUNNING');
     return () => {
-      console.log('CLEAN UP')  // ..CLeanup process for useEffect after 5 sec
-      clearTimeout(identifier) // Clear the timer
+      console.log('EFFECT CLEANUP');
     };
-    // After every login execution, setFormIsValid will rerun only 
-    // ...if 2 depencies changes
-  }, [enteredEmail, enteredPassword])
+  }, []);
+
+  // useEffect(() => {
+  //   const identifier = setTimeout(() => {
+  //     console.log('Check form validity! ')
+  //     setFormIsValid(
+  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
+  //     );
+  //   }, 400)
+  //   return () => {
+  //     console.log('CLEAN UP')  // ..CLeanup process for useEffect after 5 sec
+  //     clearTimeout(identifier) // Clear the timer
+  //   };
+  // }, [enteredEmail, enteredPassword])
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
-    // setFormIsValid();
+    setFormIsValid(
+      event.target.value.includes('@') && enteredPassword.trim().length > 6
+    );
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
-    // setFormIsValid();
+    setFormIsValid(
+      enteredEmail.includes('@') && event.target.value.trim().length > 6
+    );
   };
 
   const validateEmailHandler = () => {
